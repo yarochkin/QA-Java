@@ -3,5 +3,7 @@ public class Park {
     private Attraction attraction;
     public class Attraction{
         private String name;
+        private String workingHours;
+        private double price;
     }
 }
