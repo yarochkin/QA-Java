@@ -1,12 +1,57 @@
-import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args){
-        Product[] productsArray = new Product[5];
-        productsArray[0] = new Product("LG InstaView Door-in-Door", "12.04.2025", "LG Electronics", "South Korea", 6999, true);
-        productsArray[1] = new Product("Samsung Bespoke Family Hub", "18.02.2025", "Samsung Corp.", "South Korea", 8499, true);
-        productsArray[2] = new Product("Bosch Series 6 NoFrost", "05.09.2025", "Robert Bosch GmbH", "Germany", 4599, true);
-        productsArray[3] = new Product("Xiaomi Mijia Smart Refrigerator 430L", "14.11.2025", "Xiaomi Corp.", "China", 2199, true);
-        productsArray[4] = new Product("Haier 3D Series 7", "20.01.2026", "Haier Group", "China", 3899, false);
+    public static void main(String[] args) {
+        Animals dogBobik = new Dog("Бобик");
+        Animals catBarsik = new Cat("Барсик");
+
+        dogBobik.run(150);
+        dogBobik.swim(10);
+        dogBobik.swim(15);
+
+        catBarsik.run(200);
+        catBarsik.swim(5);
+        catBarsik.swim(5);
+
+        System.out.println("Всего животных: " + Animals.getAnimalsCount());
+
+        Cat.addFoodToPlate(30);
+
+        Cat catAppetite1 = new Cat("Мурзик");
+        catAppetite1.setAppetite(10);
+
+        Cat catAppetite2 = new Cat("Пушок");
+        catAppetite2.setAppetite(15);
+
+        Cat catAppetite3 = new Cat("Рыжик");
+        catAppetite3.setAppetite(12);
+
+        Cat[] cats = { catAppetite1, catAppetite2, catAppetite3 };
+
+        for (Cat cat : cats) {
+            cat.eat();
+            System.out.println(cat.name + " сыт: " + cat.isFull());
+        }
+
+        //Второе задание
+        Circle circle = new Circle(5.0, "Красный", "Черный");
+        System.out.println("Фигура: " + circle.getName());
+        System.out.println("Периметр: " + circle.getPerimeter());
+        System.out.println("Площадь: " + circle.getArea());
+        System.out.println("Цвет фона: " + circle.getFillColor());
+        System.out.println("Цвет границ: " + circle.getBorderColor());
+
+        Rectangle rectangle = new Rectangle(4.0, 6.0, "Синий", "Белый");
+        System.out.println("Фигура: " + rectangle.getName());
+        System.out.println("Периметр: " + rectangle.getPerimeter());
+        System.out.println("Площадь: " + rectangle.getArea());
+        System.out.println("Цвет фона: " + rectangle.getFillColor());
+        System.out.println("Цвет границ: " + rectangle.getBorderColor());
+
+        Triangle triangle = new Triangle(3.0, 4.0, 5.0, "Зеленый", "Желтый");
+        System.out.println("Фигура: " + triangle.getName());
+        System.out.println("Периметр: " + triangle.getPerimeter());
+        System.out.println("Площадь: " + triangle.getArea());
+        System.out.println("Цвет фона: " + triangle.getFillColor());
+        System.out.println("Цвет границ: " + triangle.getBorderColor());
     }
 }
