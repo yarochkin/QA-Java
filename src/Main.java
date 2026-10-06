@@ -1,57 +1,55 @@
-
 public class Main {
+
     public static void main(String[] args) {
-        Animals dogBobik = new Dog("Бобик");
-        Animals catBarsik = new Cat("Барсик");
+        String[][] correctMatrix = {
+                {"1", "2", "3", "4"},
+                {"5", "6", "7", "8"},
+                {"9", "10", "11", "12"},
+                {"13", "14", "15", "16"}
+        };
 
-        dogBobik.run(150);
-        dogBobik.swim(10);
-        dogBobik.swim(15);
-
-        catBarsik.run(200);
-        catBarsik.swim(5);
-        catBarsik.swim(5);
-
-        System.out.println("Всего животных: " + Animals.getAnimalsCount());
-
-        Cat.addFoodToPlate(30);
-
-        Cat catAppetite1 = new Cat("Мурзик");
-        catAppetite1.setAppetite(10);
-
-        Cat catAppetite2 = new Cat("Пушок");
-        catAppetite2.setAppetite(15);
-
-        Cat catAppetite3 = new Cat("Рыжик");
-        catAppetite3.setAppetite(12);
-
-        Cat[] cats = { catAppetite1, catAppetite2, catAppetite3 };
-
-        for (Cat cat : cats) {
-            cat.eat();
-            System.out.println(cat.name + " сыт: " + cat.isFull());
+        try {
+            int result = myArray(correctMatrix);
+            System.out.println("Сумма равна: " + result);
+        } catch (MyArraySizeException e) {
+            System.out.println("Ошибка размера массива!");
+        } catch (MyArrayDataException e) {
+            System.out.println("Ошибка данных в массиве!");
         }
 
-        //Второе задание
-        Circle circle = new Circle(5.0, "Красный", "Черный");
-        System.out.println("Фигура: " + circle.getName());
-        System.out.println("Периметр: " + circle.getPerimeter());
-        System.out.println("Площадь: " + circle.getArea());
-        System.out.println("Цвет фона: " + circle.getFillColor());
-        System.out.println("Цвет границ: " + circle.getBorderColor());
+        try {
+            int[] smallArray = {10, 20};
+            int errorElement = smallArray[5];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Выход за границы массива!");
+        }
+    }
 
-        Rectangle rectangle = new Rectangle(4.0, 6.0, "Синий", "Белый");
-        System.out.println("Фигура: " + rectangle.getName());
-        System.out.println("Периметр: " + rectangle.getPerimeter());
-        System.out.println("Площадь: " + rectangle.getArea());
-        System.out.println("Цвет фона: " + rectangle.getFillColor());
-        System.out.println("Цвет границ: " + rectangle.getBorderColor());
+    public static int myArray(String[][] matrix) throws MyArraySizeException, MyArrayDataException {
+        if (matrix.length != 4) {
+            throw new MyArraySizeException("Не 4 строки");
+        }
 
-        Triangle triangle = new Triangle(3.0, 4.0, 5.0, "Зеленый", "Желтый");
-        System.out.println("Фигура: " + triangle.getName());
-        System.out.println("Периметр: " + triangle.getPerimeter());
-        System.out.println("Площадь: " + triangle.getArea());
-        System.out.println("Цвет фона: " + triangle.getFillColor());
-        System.out.println("Цвет границ: " + triangle.getBorderColor());
+        for (int i = 0; i < 4; i++) {
+            if (matrix[i].length != 4) {
+                throw new MyArraySizeException("Не 4 столбца");
+            }
+        }
+
+        int sum = 0;
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                try {
+                    String s = matrix[i][j];
+                    int num = Integer.parseInt(s);
+                    sum = sum + num;
+                } catch (NumberFormatException e) {
+                    throw new MyArrayDataException("Ошибка в строке " + i + " и столбце " + j);
+                }
+            }
+        }
+
+        return sum;
     }
 }
