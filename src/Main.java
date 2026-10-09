@@ -1,55 +1,45 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class Main {
-
     public static void main(String[] args) {
-        String[][] correctMatrix = {
-                {"1", "2", "3", "4"},
-                {"5", "6", "7", "8"},
-                {"9", "10", "11", "12"},
-                {"13", "14", "15", "16"}
-        };
+        List<Integer> grades1 = new ArrayList<>(List.of(4, 5, 4, 3));
+        List<Integer> grades2 = new ArrayList<>(List.of(2, 3, 2, 2));
+        List<Integer> grades3 = new ArrayList<>(List.of(5, 5, 5, 4));
 
-        try {
-            int result = myArray(correctMatrix);
-            System.out.println("Сумма равна: " + result);
-        } catch (MyArraySizeException e) {
-            System.out.println("Ошибка размера массива!");
-        } catch (MyArrayDataException e) {
-            System.out.println("Ошибка данных в массиве!");
-        }
+        Student student1 = new Student("Иван", "111", 1, grades1);
+        Student student2 = new Student("Петр", "111", 1, grades2);
+        Student student3 = new Student("Анна", "112", 1, grades3);
 
-        try {
-            int[] smallArray = {10, 20};
-            int errorElement = smallArray[5];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Выход за границы массива!");
+        Set<Student> students = new HashSet<>();
+        students.add(student1);
+        students.add(student2);
+        students.add(student3);
+
+        List<Student> list = new ArrayList<>(students);
+        for (int i = list.size() - 1; i >= 0; i--) {
+            Student s = list.get(i);
+            double avg = s.getAverageGrade();
+
+            if (avg < 3.0) {
+                list.remove(i);
+            } else {
+                s.course++;
+            }
         }
+        students = new HashSet<>(list);
+
+        printStudents(students, 2);
     }
 
-    public static int myArray(String[][] matrix) throws MyArraySizeException, MyArrayDataException {
-        if (matrix.length != 4) {
-            throw new MyArraySizeException("Не 4 строки");
-        }
-
-        for (int i = 0; i < 4; i++) {
-            if (matrix[i].length != 4) {
-                throw new MyArraySizeException("Не 4 столбца");
+    public static void printStudents(Set<Student> students, int course) {
+        for (Student s : students) {
+            if (s.course == course) {
+                System.out.println(s.name);
             }
         }
-
-        int sum = 0;
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                try {
-                    String s = matrix[i][j];
-                    int num = Integer.parseInt(s);
-                    sum = sum + num;
-                } catch (NumberFormatException e) {
-                    throw new MyArrayDataException("Ошибка в строке " + i + " и столбце " + j);
-                }
-            }
-        }
-
-        return sum;
     }
 }
+
